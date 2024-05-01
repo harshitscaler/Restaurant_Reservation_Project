@@ -4,23 +4,24 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+@Entity
 @Getter
 @Setter
-@Entity
-public class Department {
 
+public class R_Table {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private int capacity;
 
-    @OneToMany(mappedBy = "department")
-    private List<Employee> employees;
+    private Location location;
 
+    private State state;
+
+    @OneToMany(mappedBy = "table")
+    private List<Reservation> reservations;
 
 }

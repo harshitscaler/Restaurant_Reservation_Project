@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
@@ -17,7 +19,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
     @GetMapping("")
-    public Iterable<Customer> fetchAllCustomers() {
+    public List<Customer> fetchAllCustomers() {
         return customerService.getAllCustomers();
     }
 
@@ -39,6 +41,7 @@ public class CustomerController {
 
     @PatchMapping("/{customerId}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long customerId, @RequestBody Customer customer) {
+        customer.setId(customerId);
         Customer updatedCustomer = customerService.updateCustomer(customer);
         if (updatedCustomer == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,4 +54,6 @@ public class CustomerController {
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 }

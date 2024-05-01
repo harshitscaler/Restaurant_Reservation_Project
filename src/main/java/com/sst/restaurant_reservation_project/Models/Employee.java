@@ -1,20 +1,14 @@
 package com.sst.restaurant_reservation_project.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@Table
 public class Employee {
 
     @Id
@@ -26,30 +20,9 @@ public class Employee {
     private String email;
 
     @ManyToOne
-    @JoinColumn
-    private Department department;
-
-<<<<<<< HEAD
-    @ManyToOne
-=======
->>>>>>> 1e86226 (Added CustomerController and Service)
-    @JoinColumn
     private Role role;
-    public Employee() {
-    }
 
-    public Employee(String name, String email, Department department, Role role) {
-        this.name = name;
-        this.email = email;
-        this.department = department;
-        this.role = role;
-    }
 
-    @OneToMany
-    private Set<Reservation> reservations;
-
-<<<<<<< HEAD
+    @ManyToOne
+    private Department department;
 }
-=======
-}
->>>>>>> 1e86226 (Added CustomerController and Service)

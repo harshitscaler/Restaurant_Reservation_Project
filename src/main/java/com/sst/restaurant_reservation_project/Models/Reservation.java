@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -17,10 +16,8 @@ public class Reservation {
     private Long id;
 
     @ManyToOne
-
+//    @JoinColumn(name = "customer_id")
     private Customer customer;
-
-    private Long tableId;
 
     private Long numberOfGuests;
 
@@ -29,4 +26,7 @@ public class Reservation {
     private LocalTime reservationTime;
 
 
+
+    @ManyToOne
+    private R_Table table;
 }

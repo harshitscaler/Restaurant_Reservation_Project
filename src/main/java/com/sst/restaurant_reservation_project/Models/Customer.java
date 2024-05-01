@@ -17,7 +17,7 @@ public class Customer {
     private String contactNumber;
     private String email;
 
-    @OneToMany
+    @OneToMany(mappedBy = "customer")
     private List<Reservation> reservationHistory;
 
 }
