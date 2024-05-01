@@ -16,6 +16,7 @@ public class Reservation {
     private Long id;
 
     @ManyToOne
+//    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     private Long numberOfGuests;
@@ -24,9 +25,6 @@ public class Reservation {
 
     private LocalTime reservationTime;
 
-    private LocalTime startTime;
-
-    private LocalTime endTime;
 
 
     @ManyToOne
