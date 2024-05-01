@@ -1,6 +1,8 @@
 package com.sst.restaurant_reservation_project.Controllers;
 
 import com.sst.restaurant_reservation_project.CustomExceptions.ReservationNotFoundException;
+import com.sst.restaurant_reservation_project.Dtos.RequestReservationDto;
+import com.sst.restaurant_reservation_project.Models.R_Table;
 import com.sst.restaurant_reservation_project.Models.Reservation;
 import com.sst.restaurant_reservation_project.Services.ReservationsService;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.Optional;
 public class ReservationsController {
     ReservationsService reservationsService;
     ReservationsController(ReservationsService reservationsService) {
+
         this.reservationsService = reservationsService;
     }
     @GetMapping("")
@@ -21,8 +24,8 @@ public class ReservationsController {
     }
 
     @PostMapping("")
-    public Long createReservation(@RequestBody Reservation reservation) {
-        return reservationsService.createReservation(reservation).getId();
+    public R_Table createReservation(@RequestBody RequestReservationDto reservationDto) {
+        return reservationsService.createReservation(reservationDto);
     }
 
     @GetMapping("{reservationId}")
