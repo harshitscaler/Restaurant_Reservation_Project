@@ -24,7 +24,9 @@ public class TableService {
         return tableList;
     }
     public R_Table getTableById(Long id) {
+
         return tableRepository.findById(id).orElse(null);
+
     }
 
     public R_Table createTable(R_Table table) {

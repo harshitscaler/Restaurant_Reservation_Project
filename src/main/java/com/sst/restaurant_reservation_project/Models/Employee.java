@@ -22,7 +22,6 @@ public class Employee {
     @ManyToOne
     private Role role;
 
-
     @ManyToOne
     private Department department;
 }
