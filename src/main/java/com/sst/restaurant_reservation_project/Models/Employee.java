@@ -1,5 +1,6 @@
 package com.sst.restaurant_reservation_project.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +24,6 @@ public class Employee {
     private Role role;
 
     @ManyToOne
+//    @JsonBackReference
     private Department department;
 }

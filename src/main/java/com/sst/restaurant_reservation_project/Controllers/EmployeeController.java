@@ -1,5 +1,6 @@
 package com.sst.restaurant_reservation_project.Controllers;
 
+import com.sst.restaurant_reservation_project.Dtos.EmployeeDTO;
 import com.sst.restaurant_reservation_project.Models.Employee;
 import com.sst.restaurant_reservation_project.Services.EmployeeService;
 import org.springframework.http.HttpStatus;
@@ -23,30 +24,13 @@ public class EmployeeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee, @RequestParam Long departmentId, @RequestParam Long roleId) {
-        Employee newEmployee = employeeService.createEmployee(employee, departmentId, roleId);
-        if (newEmployee == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/{employeeId}")
-    public ResponseEntity<Employee> getEmployee(@PathVariable Long employeeId) {
-        Employee employee = employeeService.getEmployeeById(employeeId);
-        if (employee == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(employee, HttpStatus.OK);
+    public Employee createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        return employeeService.createEmployee(employeeDTO);
     }
 
     @PatchMapping("/{employeeId}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long employeeId, @RequestBody Employee employee, @RequestParam Long departmentId, @RequestParam Long roleId) {
-        Employee updatedEmployee = employeeService.updateEmployee(employeeId, employee, departmentId, roleId);
-        if (updatedEmployee == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
+    public Employee updateEmployee(@PathVariable Long employeeId , @RequestBody EmployeeDTO employeeDTO) {
+        return employeeService.updateEmployee(employeeId,employeeDTO);
     }
 
     @DeleteMapping("/{employeeId}")

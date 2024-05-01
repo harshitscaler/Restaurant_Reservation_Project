@@ -1,10 +1,7 @@
 package com.sst.restaurant_reservation_project.Controllers;
 
 import com.sst.restaurant_reservation_project.Dtos.R_Table_dto;
-import com.sst.restaurant_reservation_project.Models.Customer;
-import com.sst.restaurant_reservation_project.Models.Location;
-import com.sst.restaurant_reservation_project.Models.R_Table;
-import com.sst.restaurant_reservation_project.Models.State;
+import com.sst.restaurant_reservation_project.Models.*;
 import com.sst.restaurant_reservation_project.Services.TableService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +27,11 @@ public class TableController {
     @GetMapping("/{id}")
     public R_Table getTableById(@PathVariable Long id){
         return tableService.getTableById(id);
+    }
+
+    @GetMapping("/{id}/reservations")
+    public List<Reservation> getAllReservations(@PathVariable Long id){
+        return tableService.getReservations(id);
     }
 
     @PostMapping("")

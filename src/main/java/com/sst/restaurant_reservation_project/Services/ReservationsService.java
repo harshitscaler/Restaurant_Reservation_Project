@@ -27,7 +27,17 @@ public class ReservationsService {
 
 //        List<R_Table> = reservationsRepository.getTables(reservation.getGuests(),reservation.getDate(),reservation.getStartTime(),reservation.getEndTime());
         R_Table table = tableService.getTableById(1L);
+
 //        id++;
+        Reservation newReservation = new Reservation();
+        newReservation.setTable(table);
+        newReservation.setNumberOfGuests(reservation.getGuests());
+        newReservation.setReservationDate(reservation.getDate());
+        newReservation.setStartTime(reservation.getStartTime());
+        newReservation.setEndTime(reservation.getEndTime());
+
+//        getEndTimetable.getReservations().add(newReservation);
+        reservationsRepository.save(newReservation);
         return table;
     }
 

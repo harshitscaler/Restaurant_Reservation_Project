@@ -13,7 +13,7 @@ public class RequestReservationDto {
     private String email;
     private String phoneNumber;
 
-    private int guests;
+    private Long guests;
 
     private LocalDate date;
     private LocalTime startTime;

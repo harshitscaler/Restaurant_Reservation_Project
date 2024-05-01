@@ -9,19 +9,8 @@ import lombok.Setter;
 public class EmployeeDTO {
     private String name;
     private String email;
-    private RoleDTO role;
-    private DepartmentDTO department;
+    private String role;
+    private String department;
 
-    public static EmployeeDTO fromEmployee(Employee employee) {
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-        employeeDTO.setName(employee.getName());
-        employeeDTO.setEmail(employee.getEmail());
-        if (employee.getRole() != null) {
-            employeeDTO.setRole(RoleDTO.fromRole(employee.getRole()));
-        }
-        if (employee.getDepartment() != null) {
-            employeeDTO.setDepartment(DepartmentDTO.fromDepartment(employee.getDepartment()));
-        }
-        return employeeDTO;
-    }
+
 }

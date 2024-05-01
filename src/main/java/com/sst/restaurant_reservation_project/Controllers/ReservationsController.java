@@ -24,8 +24,8 @@ public class ReservationsController {
     }
 
     @PostMapping("")
-    public R_Table createReservation(@RequestBody RequestReservationDto reservationDto) {
-        return reservationsService.createReservation(reservationDto);
+    public Long createReservation(@RequestBody RequestReservationDto reservationDto) {
+        return reservationsService.createReservation(reservationDto).getId();
     }
 
     @GetMapping("{reservationId}")

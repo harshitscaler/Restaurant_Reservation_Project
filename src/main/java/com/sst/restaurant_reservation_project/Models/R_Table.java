@@ -21,7 +21,7 @@ public class R_Table {
 
     private State state;
 
-    @OneToMany(mappedBy = "table")
-    private List<Reservation> reservations;
+//    @OneToMany(mappedBy = "table")
+//    private List<Reservation> reservations;
 
 }
