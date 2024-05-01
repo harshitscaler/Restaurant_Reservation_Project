@@ -29,7 +29,10 @@ public class Employee {
     @JoinColumn
     private Department department;
 
+<<<<<<< HEAD
     @ManyToOne
+=======
+>>>>>>> 1e86226 (Added CustomerController and Service)
     @JoinColumn
     private Role role;
     public Employee() {
@@ -45,4 +48,8 @@ public class Employee {
     @OneToMany
     private Set<Reservation> reservations;
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1e86226 (Added CustomerController and Service)

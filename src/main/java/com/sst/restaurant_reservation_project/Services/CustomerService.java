@@ -31,4 +31,9 @@ public class CustomerService {
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
     }
+
+//    public Long getCustomerByEmail(String email) {
+//        customerRepository.getCustomerIdFromEmail(email);
+//    }
+
 }

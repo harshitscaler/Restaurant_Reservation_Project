@@ -14,6 +14,7 @@ import java.util.Set;
 @Table
 public class Department {
 
+<<<<<<< HEAD
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
@@ -29,4 +30,21 @@ public class Department {
         public Department(String name) {
             this.name = name;
         }
+=======
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @OneToMany
+    private List<Employee> employees;
+
+    public Department() {
+    }
+
+    public Department(String name) {
+        this.name = name;
+    }
+>>>>>>> 1e86226 (Added CustomerController and Service)
 }
