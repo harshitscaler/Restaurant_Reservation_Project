@@ -22,7 +22,8 @@ public class Reservation {
 
     private LocalDate reservationDate;
 
-    private LocalTime reservationTime;
+    private LocalDate currDate;
+    private LocalTime currTime;
 
     private LocalTime startTime;
 
