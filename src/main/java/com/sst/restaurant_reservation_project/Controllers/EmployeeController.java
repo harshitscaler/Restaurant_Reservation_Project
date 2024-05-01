@@ -23,8 +23,11 @@ public class EmployeeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-        Employee newEmployee = employeeService.createEmployee(employee);
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee, @RequestParam Long departmentId, @RequestParam Long roleId) {
+        Employee newEmployee = employeeService.createEmployee(employee, departmentId, roleId);
+        if (newEmployee == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
@@ -38,8 +41,8 @@ public class EmployeeController {
     }
 
     @PatchMapping("/{employeeId}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long employeeId, @RequestBody Employee employee) {
-        Employee updatedEmployee = employeeService.updateEmployee(employeeId, employee);
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long employeeId, @RequestBody Employee employee, @RequestParam Long departmentId, @RequestParam Long roleId) {
+        Employee updatedEmployee = employeeService.updateEmployee(employeeId, employee, departmentId, roleId);
         if (updatedEmployee == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
