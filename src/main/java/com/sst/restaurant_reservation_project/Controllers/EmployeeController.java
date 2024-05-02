@@ -18,7 +18,10 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-
+    @GetMapping("/{id}")
+    public Employee getEmployeeById(@PathVariable Long id) {
+        return employeeService.getEmployeeById(id);
+    }
     @GetMapping
     public List<Employee> getAllEmployees() {
     return employeeService.getAllEmployees();
