@@ -21,7 +21,17 @@ public class R_Table {
 
     private State state;
 
-//    @OneToMany(mappedBy = "table")
-//    private List<Reservation> reservations;
+    @OneToMany(mappedBy = "table")
+    private List<Reservation> reservations;
 
+    @Override
+    public String toString() {
+        return "R_Table{" +
+                "id=" + id +
+                ", capacity=" + capacity +
+                ", location=" + location +
+                ", state=" + state +
+                ", reservations=" + reservations +
+                '}';
+    }
 }

@@ -25,15 +25,18 @@ public class EmployeeService {
         this.roleService = roleService;
     }
 
-    public Employee createEmployee(EmployeeDTO employeeDTO) {
-        Employee employee = new Employee();
-              employee.setName(employeeDTO.getName());
-              employee.setEmail(employeeDTO.getEmail());
-              employee.setDepartment(departmentService.getDepartmentByName(employeeDTO.getName()));
-              employee.setRole(roleService.getRoleByName(employeeDTO.getName()));
-                return employeeRepository.save(employee);
-
-    }
+//    public Employee createEmployee(EmployeeDTO employeeDTO) {
+//              Employee employee = new Employee();
+//              employee.setName(employeeDTO.getName());
+//              employee.setEmail(employeeDTO.getEmail());
+//              employee.setDepartment(departmentService.getDepartmentByName(employeeDTO.getDepartmentName()));
+//              employee.setRole(roleService.getRoleByName(employeeDTO.getRole()));
+//
+//              departmentService.getDepartmentByName(employeeDTO.getName()).getEmployees().add(employee);
+//                roleService.getRoleByName(employeeDTO.getName()).getEmployees().add(employee);
+//                return employeeRepository.save(employee);
+//
+//    }
 
     public Employee getEmployeeById(Long id) {
 
@@ -44,15 +47,37 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public Employee createEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        employee.setName(employeeDTO.getName());
+        employee.setEmail(employeeDTO.getEmail());
+        employee.setDepartment(departmentService.getDepartmentByName(employeeDTO.getDepartmentName()));
+        employee.setRole(roleService.getRoleByName(employeeDTO.getRole()));
+
+        departmentService.getDepartmentByName(employeeDTO.getDepartmentName()).getEmployees().add(employee);
+        roleService.getRoleByName(employeeDTO.getRole()).getEmployees().add(employee);
+        return employeeRepository.save(employee);
+    }
+
     public Employee updateEmployee(Long id , EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         employee.setId(id);
         employee.setName(employeeDTO.getName());
         employee.setEmail(employeeDTO.getEmail());
-        employee.setDepartment(departmentService.getDepartmentByName(employeeDTO.getName()));
-        employee.setRole(roleService.getRoleByName(employeeDTO.getName()));
+        employee.setDepartment(departmentService.getDepartmentByName(employeeDTO.getDepartmentName()));
+        employee.setRole(roleService.getRoleByName(employeeDTO.getRole()));
         return employeeRepository.save(employee);
     }
+
+//    public Employee updateEmployee(Long id , EmployeeDTO employeeDTO) {
+//        Employee employee = new Employee();
+//        employee.setId(id);
+//        employee.setName(employeeDTO.getName());
+//        employee.setEmail(employeeDTO.getEmail());
+//        employee.setDepartment(departmentService.getDepartmentByName(employeeDTO.getName()));
+//        employee.setRole(roleService.getRoleByName(employeeDTO.getName()));
+//        return employeeRepository.save(employee);
+//    }
 
     public boolean deleteEmployee(Long id) {
         if (employeeRepository.existsById(id)) {

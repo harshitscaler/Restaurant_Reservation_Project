@@ -1,5 +1,6 @@
 package com.sst.restaurant_reservation_project.Controllers;
 
+import com.sst.restaurant_reservation_project.CustomExceptions.EmployeeNotFound;
 import com.sst.restaurant_reservation_project.Dtos.EmployeeDTO;
 import com.sst.restaurant_reservation_project.Models.Employee;
 import com.sst.restaurant_reservation_project.Services.EmployeeService;
@@ -20,8 +21,8 @@ public class EmployeeController {
 
     @GetMapping
     public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
-    }
+    return employeeService.getAllEmployees();
+}
 
     @PostMapping("")
     public Employee createEmployee(@RequestBody EmployeeDTO employeeDTO) {
@@ -38,7 +39,7 @@ public class EmployeeController {
         if (employeeService.deleteEmployee(employeeId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EmployeeNotFound(employeeId);
         }
     }
 }

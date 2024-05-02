@@ -17,6 +17,11 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
+    @GetMapping("")
+    public Iterable<Department> getAllDepartments(){
+        return departmentService.getAllDepartments();
+    }
+
     @GetMapping("/{Id}")
     public Optional<Department> getDepartmentById(@PathVariable Long Id){
         Optional<Department> department = departmentService.getDepartmentById(Id);

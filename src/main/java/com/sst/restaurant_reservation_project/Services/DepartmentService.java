@@ -18,6 +18,7 @@ public class DepartmentService {
     }
 
     public Department createDepartment(Department department) {
+
         return departmentRepository.save(department);
     }
 
@@ -48,5 +49,9 @@ public class DepartmentService {
         Department newdepartment = new Department();
         newdepartment.setName(dto.getName());
         return departmentRepository.save(newdepartment);
+    }
+
+    public Iterable<Department> getAllDepartments() {
+        return departmentRepository.findAll();
     }
 }

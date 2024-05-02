@@ -59,4 +59,8 @@ public class RoleService {
         if(role.getRoleType().equals("WAITER")) rol.setRoleType(RoleType.WAITER);
         return roleRepository.save(rol);
     }
+
+    public Iterable<Role> getAllRoles() {
+        return roleRepository.findAll();
+    }
 }

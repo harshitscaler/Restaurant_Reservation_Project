@@ -13,6 +13,11 @@ public class RoleController {
         this.roleService = roleService;
     }
 
+    @GetMapping("")
+    public Iterable<Role> getAllRoles(){
+        return roleService.getAllRoles();
+    }
+
     @PostMapping("")
     public Role createRole(@RequestBody RoleDTO role) {
         return roleService.setRole(role);

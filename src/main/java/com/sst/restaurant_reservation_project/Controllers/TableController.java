@@ -20,8 +20,8 @@ public class TableController {
     }
 
     @GetMapping("")
-    public List<R_Table> fetchAllCustomers() {
-        return tableService.getAllCustomers();
+    public List<R_Table> fetchAllTables() {
+        return tableService.getAllTables();
     }
 
     @GetMapping("/{id}")
@@ -35,13 +35,13 @@ public class TableController {
     }
 
     @PostMapping("")
-    public ResponseEntity<R_Table> createCustomer(@RequestBody R_Table_dto table) {
+    public ResponseEntity<R_Table> createTable(@RequestBody R_Table_dto table) {
         R_Table newTable = new R_Table();
         newTable.setCapacity(table.getCapacity());
      //   newTable.setReservations(table.getReservations());
         newTable.setLocation(Location.WINDOWSIDED);
         if(table.getLocation().equals("PRIVATECABIN")) newTable.setLocation(PRIVATECABIN);
-        if(table.getLocation().equals("GENERAL")) newTable.setLocation(GENERAL);
+        if(table.getLocation().equals("GENERALL")) newTable.setLocation(GENERALL);
         newTable.setState(State.AVAILABLE);
        // if(table.getState().equals("OCCUPIED")) newTable.setState(State.OCCUPIED);
         R_Table createdTable = tableService.createTable(newTable);
@@ -49,19 +49,19 @@ public class TableController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCustomer(@PathVariable Long id) {
+    public void deleteTable(@PathVariable Long id) {
         tableService.deleteTable(id);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<R_Table> updateCustomer(@PathVariable Long id, @RequestBody R_Table_dto table) {
+    public ResponseEntity<R_Table> updateTable(@PathVariable Long id, @RequestBody R_Table_dto table) {
         R_Table tableToUpdate = new R_Table();
         tableToUpdate.setId(id);
         tableToUpdate.setState(State.AVAILABLE);
         tableToUpdate.setCapacity(table.getCapacity());
         tableToUpdate.setLocation(Location.WINDOWSIDED);
         if(table.getLocation().equals("PRIVATECABIN")) tableToUpdate.setLocation(PRIVATECABIN);
-        if(table.getLocation().equals("GENERAL")) tableToUpdate.setLocation(GENERAL);
+        if(table.getLocation().equals("GENERALL")) tableToUpdate.setLocation(GENERALL);
         R_Table updatedTable = tableService.updateTable(tableToUpdate);
         if (updatedTable == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

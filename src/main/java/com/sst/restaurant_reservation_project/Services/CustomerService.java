@@ -1,5 +1,6 @@
 package com.sst.restaurant_reservation_project.Services;
 
+import com.sst.restaurant_reservation_project.Dtos.CustomerDto;
 import com.sst.restaurant_reservation_project.Models.Customer;
 import com.sst.restaurant_reservation_project.Repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,17 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public Customer createCustomer(Customer customer) {
-        return customerRepository.save(customer);
+    public Customer createCustomer(CustomerDto customerDto) {
+        Customer customer = customerRepository.findByemail(customerDto.getEmail());
+
+        if (customer == null) {
+            customer = new Customer();
+            customer.setName(customerDto.getName());
+            customer.setContactNumber(customerDto.getContactNumber());
+            customer.setEmail(customerDto.getEmail());
+            customer =  customerRepository.save(customer);
+        }
+        return customer;
     }
 
     public Customer getCustomerById(Long id) {
@@ -31,7 +41,12 @@ public class CustomerService {
         return customerList;
     }
 
-    public Customer updateCustomer(Customer customer) {
+    public Customer updateCustomer(CustomerDto customerDto , Long id) {
+        Customer customer = new Customer();
+        customer.setId(id);
+        customer.setName(customerDto.getName());
+        customer.setContactNumber(customerDto.getContactNumber());
+        customer.setEmail(customerDto.getEmail());
 
         return customerRepository.save(customer);
     }

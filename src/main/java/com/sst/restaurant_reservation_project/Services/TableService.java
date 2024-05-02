@@ -22,7 +22,7 @@ public class TableService {
         this.reservationsRepository = reservationsRepository;
     }
 
-    public List<R_Table> getAllCustomers() {
+    public List<R_Table> getAllTables() {
         Iterable<R_Table> table =  tableRepository.findAll();
         List<R_Table> tableList = new ArrayList<>();
         table.forEach(tableList::add);
@@ -51,4 +51,6 @@ public class TableService {
 
         return reservationsRepository.findReservationByTableId(id);
     }
+
+
 }

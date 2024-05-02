@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/reservations/")
+@RequestMapping("/reservations")
 public class ReservationsController {
     ReservationsService reservationsService;
     ReservationsController(ReservationsService reservationsService) {
@@ -24,7 +24,7 @@ public class ReservationsController {
     }
 
     @PostMapping("")
-    public Long createReservation(@RequestBody RequestReservationDto reservationDto) {
+    public Long createReservation(@RequestBody RequestReservationDto reservationDto) throws Exception {
         return reservationsService.createReservation(reservationDto).getId();
     }
 
