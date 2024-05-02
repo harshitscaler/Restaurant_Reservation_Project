@@ -2,6 +2,7 @@ package com.sst.restaurant_reservation_project.Controllers;
 
 import com.sst.restaurant_reservation_project.CustomExceptions.ReservationNotFoundException;
 import com.sst.restaurant_reservation_project.Dtos.RequestReservationDto;
+import com.sst.restaurant_reservation_project.Exceptions.InvalidBookingException;
 import com.sst.restaurant_reservation_project.Models.R_Table;
 import com.sst.restaurant_reservation_project.Models.Reservation;
 import com.sst.restaurant_reservation_project.Services.ReservationsService;
@@ -25,6 +26,7 @@ public class ReservationsController {
 
     @PostMapping("")
     public Long createReservation(@RequestBody RequestReservationDto reservationDto) throws Exception {
+        if(!reservationDto.isValid()) throw new InvalidBookingException("Reservation details are not correct");
         return reservationsService.createReservation(reservationDto).getId();
     }
 

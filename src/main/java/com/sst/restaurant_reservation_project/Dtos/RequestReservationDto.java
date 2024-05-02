@@ -30,6 +30,10 @@ public class RequestReservationDto {
                 '}';
     }
 
+    public boolean isValid() {
+        return name != null && email != null && phoneNumber != null && guests != null && location != null && date != null && startTime != null && endTime != null;
+    }
+
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
