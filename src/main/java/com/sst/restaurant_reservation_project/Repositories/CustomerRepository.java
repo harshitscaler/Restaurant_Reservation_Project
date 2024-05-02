@@ -7,4 +7,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Override
     Customer save(Customer customer);
 
+    Customer findByemail(String email);
 }

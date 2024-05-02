@@ -1,5 +1,6 @@
 package com.sst.restaurant_reservation_project.Services;
 
+import com.sst.restaurant_reservation_project.Dtos.EmployeeDTO;
 import com.sst.restaurant_reservation_project.Models.Department;
 import com.sst.restaurant_reservation_project.Models.Employee;
 import com.sst.restaurant_reservation_project.Models.Role;
@@ -10,57 +11,73 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
-    private final DepartmentRepository departmentRepository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
+    private final DepartmentService departmentService;
 
-    public EmployeeService(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository, RoleRepository roleRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, DepartmentService departmentService, RoleService roleService) {
         this.employeeRepository = employeeRepository;
-        this.departmentRepository = departmentRepository;
-        this.roleRepository = roleRepository;
+        this.departmentService = departmentService;
+        this.roleService = roleService;
     }
 
-    public Employee createEmployee(Employee employee, Long departmentId, Long roleId) {
-        Department department = departmentRepository.findById(departmentId).orElse(null);
-        Role role = roleRepository.findById(roleId).orElse(null);
-
-        if (department != null && role != null) {
-            employee.setDepartment(department);
-            employee.setRole(role);
-            return employeeRepository.save(employee);
-        }
-        return null;
-    }
+//    public Employee createEmployee(EmployeeDTO employeeDTO) {
+//              Employee employee = new Employee();
+//              employee.setName(employeeDTO.getName());
+//              employee.setEmail(employeeDTO.getEmail());
+//              employee.setDepartment(departmentService.getDepartmentByName(employeeDTO.getDepartmentName()));
+//              employee.setRole(roleService.getRoleByName(employeeDTO.getRole()));
+//
+//              departmentService.getDepartmentByName(employeeDTO.getName()).getEmployees().add(employee);
+//                roleService.getRoleByName(employeeDTO.getName()).getEmployees().add(employee);
+//                return employeeRepository.save(employee);
+//
+//    }
 
     public Employee getEmployeeById(Long id) {
+
         return employeeRepository.findById(id).orElse(null);
     }
 
     public List<Employee> getAllEmployees() {
-        Iterable<Employee> employees = employeeRepository.findAll();
-        List<Employee> employeeList = new ArrayList<>();
-        employees.forEach(employeeList::add);
-        return employeeList;
+        return employeeRepository.findAll();
     }
 
-    public Employee updateEmployee(Long id, Employee employee, Long departmentId, Long roleId) {
-        Employee existingEmployee = employeeRepository.findById(id).orElse(null);
-        if (existingEmployee != null) {
-            existingEmployee.setName(employee.getName());
-            existingEmployee.setEmail(employee.getEmail());
-            Department department = departmentRepository.findById(departmentId).orElse(null);
-            Role role = roleRepository.findById(roleId).orElse(null);
-            if (department != null && role != null) {
-                existingEmployee.setDepartment(department);
-                existingEmployee.setRole(role);
-            }
-            return employeeRepository.save(existingEmployee);
-        }
-        return null;
+    public Employee createEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        employee.setName(employeeDTO.getName());
+        employee.setEmail(employeeDTO.getEmail());
+        employee.setDepartment(departmentService.getDepartmentByName(employeeDTO.getDepartmentName()));
+        employee.setRole(roleService.getRoleByName(employeeDTO.getRole()));
+
+        departmentService.getDepartmentByName(employeeDTO.getDepartmentName()).getEmployees().add(employee);
+        roleService.getRoleByName(employeeDTO.getRole()).getEmployees().add(employee);
+        return employeeRepository.save(employee);
     }
+
+    public Employee updateEmployee(Long id , EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        employee.setId(id);
+        employee.setName(employeeDTO.getName());
+        employee.setEmail(employeeDTO.getEmail());
+        employee.setDepartment(departmentService.getDepartmentByName(employeeDTO.getDepartmentName()));
+        employee.setRole(roleService.getRoleByName(employeeDTO.getRole()));
+        return employeeRepository.save(employee);
+    }
+
+//    public Employee updateEmployee(Long id , EmployeeDTO employeeDTO) {
+//        Employee employee = new Employee();
+//        employee.setId(id);
+//        employee.setName(employeeDTO.getName());
+//        employee.setEmail(employeeDTO.getEmail());
+//        employee.setDepartment(departmentService.getDepartmentByName(employeeDTO.getName()));
+//        employee.setRole(roleService.getRoleByName(employeeDTO.getName()));
+//        return employeeRepository.save(employee);
+//    }
 
     public boolean deleteEmployee(Long id) {
         if (employeeRepository.existsById(id)) {

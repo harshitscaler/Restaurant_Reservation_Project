@@ -1,5 +1,6 @@
 package com.sst.restaurant_reservation_project.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,5 +32,6 @@ public class Reservation {
 
 
     @ManyToOne
+    @JsonIgnore
     private R_Table table;
 }

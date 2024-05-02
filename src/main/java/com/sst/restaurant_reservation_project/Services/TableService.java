@@ -2,7 +2,9 @@ package com.sst.restaurant_reservation_project.Services;
 
 import com.sst.restaurant_reservation_project.Models.Customer;
 import com.sst.restaurant_reservation_project.Models.R_Table;
+import com.sst.restaurant_reservation_project.Models.Reservation;
 import com.sst.restaurant_reservation_project.Repositories.CustomerRepository;
+import com.sst.restaurant_reservation_project.Repositories.ReservationsRepository;
 import com.sst.restaurant_reservation_project.Repositories.TableRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +14,15 @@ import java.util.List;
 @Service
 public class TableService {
     private final TableRepository tableRepository;
+    private final ReservationsRepository reservationsRepository;
 
-    public TableService(TableRepository tableRepository) {
+    public TableService(TableRepository tableRepository, ReservationsRepository reservationsRepository) {
+
         this.tableRepository = tableRepository;
+        this.reservationsRepository = reservationsRepository;
     }
 
-    public List<R_Table> getAllCustomers() {
+    public List<R_Table> getAllTables() {
         Iterable<R_Table> table =  tableRepository.findAll();
         List<R_Table> tableList = new ArrayList<>();
         table.forEach(tableList::add);
@@ -41,4 +46,11 @@ public class TableService {
 
         return tableRepository.save(table);
     }
+
+    public List<Reservation> getReservations(Long id) {
+
+        return reservationsRepository.findReservationByTableId(id);
+    }
+
+
 }

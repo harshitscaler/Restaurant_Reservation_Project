@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/reservations/")
+@RequestMapping("/reservations")
 public class ReservationsController {
     ReservationsService reservationsService;
     ReservationsController(ReservationsService reservationsService) {
@@ -24,8 +24,8 @@ public class ReservationsController {
     }
 
     @PostMapping("")
-    public R_Table createReservation(@RequestBody RequestReservationDto reservationDto) {
-        return reservationsService.createReservation(reservationDto);
+    public Long createReservation(@RequestBody RequestReservationDto reservationDto) throws Exception {
+        return reservationsService.createReservation(reservationDto).getId();
     }
 
     @GetMapping("{reservationId}")
@@ -40,9 +40,9 @@ public class ReservationsController {
 
 
     @PatchMapping("{reservationId}")
-    public Reservation updateReservation(@PathVariable Long reservationId, @RequestBody Reservation reservation) {
-        reservation.setId(reservationId);
-        return reservationsService.updateReservation(reservation);
+    public R_Table updateReservation(@PathVariable Long reservationId, @RequestBody RequestReservationDto reservationDto) throws Exception {
+
+        return reservationsService.updateReservation(reservationId, reservationDto);
     }
 
     @DeleteMapping("{reservationId}")

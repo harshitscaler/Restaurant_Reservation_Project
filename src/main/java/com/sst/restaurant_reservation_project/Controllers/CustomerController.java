@@ -1,5 +1,8 @@
 package com.sst.restaurant_reservation_project.Controllers;
 
+import com.sst.restaurant_reservation_project.CustomExceptions.CustomerNotFound;
+import com.sst.restaurant_reservation_project.CustomExceptions.DepartmentNotFound;
+import com.sst.restaurant_reservation_project.Dtos.CustomerDto;
 import com.sst.restaurant_reservation_project.Models.Customer;
 import com.sst.restaurant_reservation_project.Repositories.CustomerRepository;
 import com.sst.restaurant_reservation_project.Services.CustomerService;
@@ -25,8 +28,8 @@ public class CustomerController {
 
 
     @PostMapping("")
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        Customer newCustomer = customerService.createCustomer(customer);
+    public ResponseEntity<Customer> createCustomer(@RequestBody CustomerDto customerDto) {
+        Customer newCustomer = customerService.createCustomer(customerDto);
         return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
     }
 
@@ -40,17 +43,17 @@ public class CustomerController {
     }
 
     @PatchMapping("/{customerId}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long customerId, @RequestBody Customer customer) {
-        customer.setId(customerId);
-        Customer updatedCustomer = customerService.updateCustomer(customer);
-        if (updatedCustomer == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long customerId, @RequestBody CustomerDto customerDto) {
+
+        Customer updatedCustomer = customerService.updateCustomer(customerDto, customerId);
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 
     @DeleteMapping("/{customerId}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long customerId) {
+        if(customerService.getCustomerById(customerId) == null) {
+            throw new CustomerNotFound(customerId);
+        }
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -10,10 +10,10 @@ public class RoleDTO {
     private String roleType;
     private Long salary;
 
-    public static RoleDTO fromRole(Role role) {
-        RoleDTO roleDTO = new RoleDTO();
-        roleDTO.setRoleType(role.getRoleType().name());
-        roleDTO.setSalary(role.getSalary());
-        return roleDTO;
-    }
+//    public static RoleDTO fromRole(Role role) {
+//        RoleDTO roleDTO = new RoleDTO();
+//        roleDTO.setRoleType(role.getRoleType().name());
+//        roleDTO.setSalary(role.getSalary());
+//        return roleDTO;
+//    }
 }

@@ -1,5 +1,7 @@
 package com.sst.restaurant_reservation_project.Models;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Generated;
 import lombok.Getter;
@@ -17,6 +19,7 @@ public class Customer {
     private String contactNumber;
     private String email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<Reservation> reservationHistory;
 
