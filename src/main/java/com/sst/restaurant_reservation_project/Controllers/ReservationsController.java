@@ -40,9 +40,9 @@ public class ReservationsController {
 
 
     @PatchMapping("{reservationId}")
-    public Reservation updateReservation(@PathVariable Long reservationId, @RequestBody Reservation reservation) {
-        reservation.setId(reservationId);
-        return reservationsService.updateReservation(reservation);
+    public R_Table updateReservation(@PathVariable Long reservationId, @RequestBody RequestReservationDto reservationDto) throws Exception {
+
+        return reservationsService.updateReservation(reservationId, reservationDto);
     }
 
     @DeleteMapping("{reservationId}")

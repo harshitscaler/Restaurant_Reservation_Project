@@ -60,20 +60,21 @@ public class ReservationsService {
             if(reservation.getLocation().equals("GENERALL")) {
 
                 System.out.println("condition check");
-
+                locationEnum = Location.GENERALL;
             }
 
 
         List<R_Table> tables = tableService.getAllTables();
+            R_Table table = null;
         for(int i=0;i<tables.size();i++){
-            System.out.println(tables.get(i).toString());
+//            System.out.println(tables.get(i).toString());
             if(tables.get(i).getCapacity()<guests) continue;
             if(tables.get(i).getLocation()!=(locationEnum)) {
                 System.out.println("Location not matched = "+tables.get(i).getLocation() + " != "+locationEnum);
                 continue;
             };
 
-            System.out.println("Passed tables = "+tables.get(i).toString());
+//            System.out.println("Passed tables = "+tables.get(i).toString());
 
 
             List<Reservation> reservations = tables.get(i).getReservations();
@@ -88,34 +89,53 @@ public class ReservationsService {
                 }
             }
             if(!isReserved){
-                Reservation newReservation = new Reservation();
-                newReservation.setReservationDate(reservedDate);
-                newReservation.setStartTime(startTime);
-                newReservation.setEndTime(endTime);
-                newReservation.setTable(tables.get(i));
-                newReservation.setNumberOfGuests(guests);
-                newReservation.setCustomer(customer);
-                newReservation.setCurrDate(LocalDate.now());
-                newReservation.setCurrTime(LocalTime.now());
-                reservationsRepository.save(newReservation);
-                tables.get(i).getReservations().add(newReservation);
-                customer.getReservationHistory().add(newReservation);
-                return tables.get(i);
+
+                if(table==null) table = tables.get(i);
+                else if(table.getCapacity()>tables.get(i).getCapacity()) table = tables.get(i);
             }
 
         }
-        throw new TableNOtFound("No tables available for the given reservation");
+        if(table==null) throw new TableNOtFound("No tables available for the given reservation");
+        Reservation newReservation = new Reservation();
+        newReservation.setReservationDate(reservedDate);
+        newReservation.setStartTime(startTime);
+        newReservation.setEndTime(endTime);
+        newReservation.setTable(table);
+        newReservation.setNumberOfGuests(guests);
+        newReservation.setCustomer(customer);
+        newReservation.setCurrDate(LocalDate.now());
+        newReservation.setCurrTime(LocalTime.now());
+        reservationsRepository.save(newReservation);
+        table.getReservations().add(newReservation);
+        customer.getReservationHistory().add(newReservation);
+        return table;
     }
 
-    void bookTable(R_Table table, RequestReservationDto reservation){}
 
 
     public Reservation getReservationById(Long reservationId) {
         return reservationsRepository.findById(reservationId).orElse(null);
     }
 
-    public Reservation updateReservation(Reservation reservation) {
-        return reservationsRepository.save(reservation);
+    public R_Table updateReservation(Long id , RequestReservationDto reservationDto) throws Exception {
+        Reservation reservation = reservationsRepository.findById(id).orElse(null);
+        if(reservation == null) throw new Exception("Reservation not found");
+        reservationDto.setName(reservationDto.getName());
+        reservationDto.setEmail(reservationDto.getEmail());
+        reservationDto.setPhoneNumber(reservationDto.getPhoneNumber());
+
+        if(reservationDto.getGuests()==null) reservationDto.setGuests(reservation.getNumberOfGuests());
+        if(reservationDto.getLocation()==null) reservationDto.setLocation(reservation.getTable().getLocation().toString());
+        if(reservationDto.getDate()==null) reservationDto.setDate(reservation.getReservationDate());
+        if(reservationDto.getStartTime()==null) reservationDto.setStartTime(reservation.getStartTime());
+        if(reservationDto.getEndTime()==null) reservationDto.setEndTime(reservation.getEndTime());
+
+        R_Table table = createReservation(reservationDto);
+
+        reservationsRepository.delete(reservation);
+
+
+        return table;
     }
 
     public void deleteReservation(Long reservationId) {
