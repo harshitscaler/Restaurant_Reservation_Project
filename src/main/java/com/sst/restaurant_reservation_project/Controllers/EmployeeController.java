@@ -28,7 +28,10 @@ public class EmployeeController {
 }
 
     @PostMapping("")
-    public Employee createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public Employee createEmployee(@RequestBody EmployeeDTO employeeDTO) throws Exception {
+        if(!employeeDTO.isValid()) {
+            throw new Exception("Employee details are not correct");
+        }
         return employeeService.createEmployee(employeeDTO);
     }
 

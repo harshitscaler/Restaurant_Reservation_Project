@@ -28,7 +28,10 @@ public class CustomerController {
 
 
     @PostMapping("")
-    public ResponseEntity<Customer> createCustomer(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody CustomerDto customerDto) throws Exception {
+        if(!customerDto.isValid()) {
+            throw new Exception("Customer details are not correct");
+        }
         Customer newCustomer = customerService.createCustomer(customerDto);
         return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
     }

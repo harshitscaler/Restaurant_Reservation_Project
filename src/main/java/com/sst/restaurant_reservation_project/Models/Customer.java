@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Customer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +20,7 @@ public class Customer {
     private String contactNumber;
     private String email;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "customer")
     private List<Reservation> reservationHistory;
 

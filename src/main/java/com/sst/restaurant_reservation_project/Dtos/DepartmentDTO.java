@@ -9,6 +9,10 @@ import lombok.Setter;
 public class DepartmentDTO {
     private String name;
 
+    public boolean isValid() {
+        return name != null;
+    }
+
 //    public static DepartmentDTO fromDepartment(Department department) {
 //        DepartmentDTO departmentDTO = new DepartmentDTO();
 //        departmentDTO.setName(department.getName());

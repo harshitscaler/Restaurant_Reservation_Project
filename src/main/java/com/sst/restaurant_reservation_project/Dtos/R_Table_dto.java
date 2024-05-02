@@ -14,4 +14,8 @@ public class R_Table_dto {
     private int capacity;
 
     private String location;
+
+    public boolean isValid() {
+        return capacity != 0 && location != null;
+    }
 }

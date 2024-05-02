@@ -10,6 +10,10 @@ public class RoleDTO {
     private String roleType;
     private Long salary;
 
+    public boolean isValid() {
+        return roleType != null && salary != null;
+    }
+
 //    public static RoleDTO fromRole(Role role) {
 //        RoleDTO roleDTO = new RoleDTO();
 //        roleDTO.setRoleType(role.getRoleType().name());

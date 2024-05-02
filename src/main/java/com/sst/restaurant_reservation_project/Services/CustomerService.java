@@ -18,7 +18,6 @@ public class CustomerService {
 
     public Customer createCustomer(CustomerDto customerDto) {
         Customer customer = customerRepository.findByemail(customerDto.getEmail());
-
         if (customer == null) {
             customer = new Customer();
             customer.setName(customerDto.getName());

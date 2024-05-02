@@ -6,6 +6,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RestaurantDto {
+
+
     private String name;
     private String city;
+
+    public boolean isValid() {
+        return name != null && city != null;
+    }
 }

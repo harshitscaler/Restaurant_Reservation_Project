@@ -10,4 +10,8 @@ import java.util.Date;
 public class ExceptionDTO {
     private String message;
     private Date time;
+
+    public boolean isValid() {
+        return message != null && time != null;
+    }
 }

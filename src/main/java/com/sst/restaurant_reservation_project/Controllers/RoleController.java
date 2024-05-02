@@ -19,7 +19,8 @@ public class RoleController {
     }
 
     @PostMapping("")
-    public Role createRole(@RequestBody RoleDTO role) {
+    public Role createRole(@RequestBody RoleDTO role) throws Exception {
+        if(!role.isValid()) throw new Exception("Role details are not correct");
         return roleService.setRole(role);
     }
 

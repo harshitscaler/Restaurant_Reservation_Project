@@ -12,4 +12,7 @@ public class EmployeeDTO {
     private String role;
     private String departmentName;
 
+    public boolean isValid() {
+        return name != null && email != null && role != null && departmentName != null;
+    }
 }

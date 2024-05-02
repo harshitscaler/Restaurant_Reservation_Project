@@ -35,15 +35,16 @@ public class TableController {
     }
 
     @PostMapping("")
-    public ResponseEntity<R_Table> createTable(@RequestBody R_Table_dto table) {
+    public ResponseEntity<R_Table> createTable(@RequestBody R_Table_dto table) throws Exception {
+        if(!table.isValid()) {
+            throw new Exception("Table details are not correct");
+        }
         R_Table newTable = new R_Table();
         newTable.setCapacity(table.getCapacity());
-     //   newTable.setReservations(table.getReservations());
         newTable.setLocation(Location.WINDOWSIDED);
         if(table.getLocation().equals("PRIVATECABIN")) newTable.setLocation(PRIVATECABIN);
         if(table.getLocation().equals("GENERALL")) newTable.setLocation(GENERALL);
         newTable.setState(State.AVAILABLE);
-       // if(table.getState().equals("OCCUPIED")) newTable.setState(State.OCCUPIED);
         R_Table createdTable = tableService.createTable(newTable);
         return new ResponseEntity<>(createdTable, HttpStatus.CREATED);
     }

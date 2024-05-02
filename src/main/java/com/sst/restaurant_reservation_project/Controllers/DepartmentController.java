@@ -32,7 +32,10 @@ public class DepartmentController {
     }
 
     @PostMapping("")
-    public Department createDepartment(@RequestBody DepartmentDTO departmentDTO){
+    public Department createDepartment(@RequestBody DepartmentDTO departmentDTO) throws Exception {
+        if(departmentDTO.isValid()){
+            throw new Exception("Department details are not correct");
+        }
         return departmentService.setDepartment(departmentDTO);
     }
 
